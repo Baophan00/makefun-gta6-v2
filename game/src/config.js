@@ -1,61 +1,85 @@
-// Every tuning number and colour in one place. The playfield is a fixed 1280x720 logical area;
-// the renderer scales it to the window, so no rule below depends on the screen size.
+// Every constant for the GTA-style city in one place: the tile grid, the colour set and the
+// tuning used by input, world and entities. One tile is 40 logical pixels; the grid is 32x18,
+// so the whole city is 1280x720 and every rule below is independent of the window size.
 
-export const FIELD = { width: 1280, height: 720, groundY: 664 };
+export const TILE = 40;
+export const COLS = 32;
+export const ROWS = 18;
+export const WORLD = { width: COLS * TILE, height: ROWS * TILE };
 
-/** The simulation's fixed step, in seconds: 60 updates a second whatever the display's rate. */
+/** Fixed simulation step: 60 updates a second whatever the display refresh rate. */
 export const STEP = 1 / 60;
 
-export const PLAYER = {
-  width: 72,
-  height: 24,
-  speed: 560,
-  invulnerable: 1.5,
-};
-
-export const LIVES = 3;
-
-export const BLOCK = {
-  minWidth: 40,
-  maxWidth: 110,
-  height: 36,
-  speed: 240,
-  speedPerLevel: 30,
-  speedJitter: 90,
-  interval: 0.55,
-  intervalScale: 0.88,
-  minInterval: 0.14,
-  dodgePoints: 1,
-};
-
-export const COIN = {
-  size: 24,
-  speed: 190,
-  speedPerLevel: 14,
-  interval: 1.4,
-  intervalJitter: 0.8,
-  points: 10,
-};
-
-/** Seconds of play per level, and the last level: speeds and spawn rates stop growing there. */
-export const LEVEL = { seconds: 12, max: 12 };
-
-/** How many falling things can exist at once; the pool is allocated once, at boot. */
-export const POOL_SIZE = 64;
+// Tile ids. Streets and open ground are walkable; buildings and water are solid.
+export const TILE_ROAD = 0;
+export const TILE_BUILDING = 1;
+export const TILE_PARK = 2;
+export const TILE_WATER = 3;
+export const TILE_SIDEWALK = 4;
 
 export const PALETTE = {
-  backdrop: '#11141b',
-  sky: '#1b1f2a',
-  ground: '#2a3040',
+  backdrop: '#0d1016',
+  road: '#333a45',
+  line: '#c9c15b',
+  building: '#5a6072',
+  roof: '#717988',
+  window: '#d7c98a',
+  park: '#3f7d52',
+  parkDark: '#2c5d3b',
+  water: '#27627f',
+  wave: '#3e90ad',
+  sidewalk: '#8a8f9c',
   player: '#4fc3f7',
-  block: '#e5534b',
-  coin: '#f2c94c',
-  panel: '#252b38',
-  text: '#eef1f5',
-  muted: '#8b93a3',
+  car: ['#e5534b', '#f2c94c', '#57c99a', '#b07ce0', '#ecf0f4', '#e88b3a'],
+  ped: '#e8d6b0',
+  bullet: '#fff2b2',
+  spark: '#ffd166',
+  blood: '#b6444b',
+  hud: '#eef1f5',
+  panel: '#1b2029',
 };
 
 export const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
+export const BEST_KEY = 'gta6-01.best';
 
-/** Where the best score is kept between visits (this browser only). */
-export const BEST_KEY = 'block-dodger.best';
+export const PLAYER = {
+  radius: 11,
+  speed: 210,
+  health: 100,
+  fireDelay: 0.16,
+};
+
+export const CAR = {
+  radius: 17,
+  cruise: 150,
+  maxSpeed: 260,
+  accel: 130,
+  brake: 240,
+  reverse: 70,
+  turn: 2.6,
+  count: 12,
+};
+
+export const PED = {
+  radius: 7,
+  speed: 52,
+  flee: 96,
+  fleeMul: 1.9,
+  wander: 1.6,
+  count: 22,
+};
+
+export const BULLET = {
+  radius: 3,
+  speed: 620,
+  life: 1.1,
+  damage: 18,
+};
+
+export const PARTICLE = {
+  radius: 2.5,
+  pool: 220,
+  speed: 130,
+  drag: 2.2,
+  gravity: 60,
+};
